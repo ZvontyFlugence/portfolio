@@ -1,7 +1,7 @@
 <template>
   <div class="image-container">
-    <img class="image hidden-sm-and-down" src="http://localhost:8080/headshot.jpg" />
-    <img class="mobile-image hidden-md-and-up" src="http://localhost:8080/headshot.jpg" />
+    <img class="image hidden-sm-and-down" :src="`${base}headshot.jpg`" />
+    <img class="mobile-image hidden-md-and-up" :src="`${base}headshot.jpg`" />
   </div>
 </template>
 
@@ -26,7 +26,7 @@
 export default {
   name: 'Index',
   data: () => ({
-    //
+    base: process.env.BASE_URL || 'http://localhost:8080/'
   })
 }
 </script>
