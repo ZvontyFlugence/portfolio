@@ -12,8 +12,11 @@ app.use(express.static(__dirname, 'public'));
 
 // Handle PRODUCTION
 if (process.env.NODE_ENV === 'production') {
+  // Static Folder
+  app.use(express.static(__dirname + '/dist/'));
+
   //  Handle SPA
-  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/dist/index.html'));
 }
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
