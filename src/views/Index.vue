@@ -1,7 +1,7 @@
 <template>
   <div class="image-container">
-    <img class="image hidden-sm-and-down" src="@/assets/headshot.jpg" />
-    <img class="mobile-image hidden-md-and-up" src="@/assets/headshot.jpg" />
+    <img class="image hidden-sm-and-down" src="http://localhost:8080/headshot.jpg" />
+    <img class="mobile-image hidden-md-and-up" src="http://localhost:8080/headshot.jpg" />
   </div>
 </template>
 
