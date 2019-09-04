@@ -20,7 +20,7 @@
     <el-row class="side-nav-social">
       <el-button @click="navigate(linkedInPage)" circle><font-awesome-icon :icon="['fab', 'linkedin']" /></el-button>
       <el-button @click="navigate(githubPage)" circle><font-awesome-icon :icon="['fab', 'github']" /></el-button>
-      <a href="mailto:zaf17@pitt.edu">
+      <a class="side-nav-email" href="mailto:zaf17@pitt.edu">
         <el-button icon="el-icon-message" circle/>
       </a>
     </el-row>
@@ -42,6 +42,9 @@
 }
 .side-nav-actions, .side-nav-social {
   margin-top: 5vh;
+}
+.side-nav-email {
+  margin-left: 10px;
 }
 .side-nav-link {
   color: white;
