@@ -2,7 +2,15 @@
   <div class="portfolio-container">
     <h1 class="portfolio-title">Portfolio</h1>
     <el-row class="portfolio-grid" :gutter="20" >
-      <el-col :span="12" v-for="(project, index) in projects" :key="index">
+      <el-col class="hidden-sm-and-down" :span="12" v-for="(project, index) in projects" :key="index">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix portfolio-card">
+            <span>{{ project.name }}</span>
+          </div>
+          <span>{{ project.desc }}</span>
+        </el-card>
+      </el-col>
+      <el-col class="hidden-md-and-up" :span="24" v-for="(project, index) in projects" :key="index">
         <el-card class="box-card">
           <div slot="header" class="clearfix portfolio-card">
             <span>{{ project.name }}</span>
