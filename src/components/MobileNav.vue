@@ -2,7 +2,9 @@
   <div class="mobile-nav">
     <el-row>
       <el-col :span="22">
-        <h2 class="mobile-nav-name">Z'vonty Flugence </h2>
+        <router-link class="mobile-nav-link" to="/">
+          <h2 class="mobile-nav-name">Z'vonty Flugence </h2>
+        </router-link>
       </el-col>
       <el-col :span="2">
         <h2>
@@ -19,20 +21,26 @@
     >
       <div class="drawer-content">
         <el-row>
-          <el-button type="text">Experience</el-button>
+          <router-link to="experience">
+            <el-button type="text">Experience</el-button>
+          </router-link>
         </el-row>
         <el-row>
-          <el-button type="text">Portfolio</el-button>
+          <router-link to="portfolio">
+            <el-button type="text">Portfolio</el-button>
+          </router-link>
         </el-row>
         <el-divider />
         <el-row>
-          <el-button type="text">LinkedIn</el-button>
+          <el-button @click="navigate(linkedInPage)" type="text">LinkedIn</el-button>
         </el-row>
         <el-row>
-          <el-button type="text">Github</el-button>
+          <el-button @click="navigate(githubPage)" type="text">Github</el-button>
         </el-row>
         <el-row>
-          <el-button type="text">Email</el-button>
+          <a href="mailto:zaf17@pitt.edu">
+            <el-button type="text">Email</el-button>
+          </a>
         </el-row>
       </div>
     </el-drawer>
@@ -54,6 +62,10 @@
   color: white;
   margin-top: -5vh;
 }
+.mobile-nav-link {
+  color: white;
+  text-decoration: none;
+}
 .drawer-content {
   text-align: center;
 }
@@ -63,7 +75,14 @@
 export default {
   name: 'MobileNav',
   data: () => ({
-    drawer: false
-  })
+    drawer: false,
+    linkedInPage: 'https://www.linkedin.com/in/zvonty-flugence/',
+    githubPage: 'https://github.com/ZvontyFlugence'
+  }),
+  methods: {
+    navigate: (path) => {
+      window.location = path;
+    }
+  }
 }
 </script>
