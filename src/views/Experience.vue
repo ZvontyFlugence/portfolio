@@ -1,7 +1,7 @@
 <template>
   <div class="experience-container">
     <h1 class="experience-title">Experience</h1>
-    <iframe class="experience-doc" src="https://drive.google.com/file/d/1PUPMmUxOGQm9ABmy5ZNf5PI6HSpOgrOb/preview" width="640" height="480"></iframe>
+    <iframe class="experience-doc" src="https://drive.google.com/file/d/1PUPMmUxOGQm9ABmy5ZNf5PI6HSpOgrOb/preview" width="640" height="560"></iframe>
   </div>
 </template>
 

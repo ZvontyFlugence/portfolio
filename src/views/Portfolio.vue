@@ -47,11 +47,15 @@ export default {
     return {
       projects: [
         {
-          name: 'State of Turmoil',
+          name: '[WIP] State of Turmoil',
           desc: 'State of Turmoil is a browser-based simulated geo-political MMORPG' +
-            ' developed using the MERN development stack and the real-time capabilities of Socket.io.' +
-            ''
+            ' developed using the MERN development stack and the real-time capabilities of Socket.io.'
         },
+        {
+          name: '[WIP] Rusty-EU4',
+          desc: 'Rusty-EU4 is a recreation of the popular historical grand strategy game, Europa Universalis 4,' +
+          ' by Paradox Interactive from scratch using the Rust programming language.'
+        }
       ],
     }
   },
