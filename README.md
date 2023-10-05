@@ -63,3 +63,22 @@ The production build will generate client and server modules by running both cli
 ```shell
 bun build # or `yarn build`
 ```
+
+## TODO
+
+- Implement folder explorer UI with drag and drop files/folders
+- Implement draggable explorer UI
+- Implement browser UI? Implement/bundle Radiant JS Engine?
+- Store UI/Accessibility settings in localStorage
+- Implement resizing UI without dragging the window
+- Persist window state even while minimized (data structure change or serialization into localStorage?)
+  - i.e. Terminal command history, Terminal input value, Terminal working directory (path), etc.
+  - How to remove dangling terminal state in localStorage on page reloads?
+- `Delete` key removes a file
+- Implement context menu on right click
+- MAYBE: Find a way to persist desktop items slot locations over state updates (create/delete file/folder) without breaking the UI
+  - Previous implementation (commented out) worked from the File System POV but did not update the Desktop UI without a refresh of the page
+    - Seems like it was due to the slot id's (uuid) that were being tracked for correct item positioning were changing over state updates,
+      invalidating the entire slot position cache. Worked on page reload because cache was empty and could place in first available slot.
+- Implement application search or app drawer
+  - app search like in MacOS would probably be easier from a UI perspective (basic debounnced search dropdown against a constant application array)
