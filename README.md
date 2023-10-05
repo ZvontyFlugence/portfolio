@@ -71,9 +71,6 @@ bun build # or `yarn build`
 - Implement browser UI? Implement/bundle Radiant JS Engine?
 - Store UI/Accessibility settings in localStorage
 - Implement resizing UI without dragging the window
-- Persist window state even while minimized (data structure change or serialization into localStorage?)
-  - i.e. Terminal command history, Terminal input value, Terminal working directory (path), etc.
-  - How to remove dangling terminal state in localStorage on page reloads?
 - `Delete` key removes a file
 - Implement context menu on right click
 - MAYBE: Find a way to persist desktop items slot locations over state updates (create/delete file/folder) without breaking the UI

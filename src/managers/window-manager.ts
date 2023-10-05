@@ -1,6 +1,6 @@
 import { $, Component, QRL } from '@builder.io/qwik';
 import { v4 as uuidv4 } from 'uuid';
-import terminal from '~/components/ui/terminal';
+import terminal, { TerminalState } from '~/components/ui/terminal';
 
 export type AppProps = {
 	win_id: string;
@@ -27,7 +27,7 @@ export interface WindowManager {
 	activeWindows: Window[];
 	openWindow: QRL<(App: Component<AppProps>, type: AppType) => void>;
 	activateWindow: QRL<(win_id: string) => void>;
-	minimizeWindow: QRL<(win_id: string) => void>;
+	minimizeWindow: QRL<(win_id: string, state: TerminalState) => void>;
 	expandWindow: QRL<(win_id: string) => void>;
 	shrinkWindow: QRL<(win_id: string) => void>;
 	closeWindow: QRL<(win_id: string) => void>;
@@ -69,11 +69,12 @@ export const windowManager: WindowManager = {
 
 		this.activeWindows.push(window);
 	}),
-	minimizeWindow: $(function (this: WindowManager, win_id: string) {
+	minimizeWindow: $(function (this: WindowManager, win_id: string, state: Record<string, any>) {
 		let index = this.activeWindows.findIndex((win) => win.id === win_id);
 		if (index === -1) return;
 
 		this.activeWindows.splice(index, 1);
+		localStorage.setItem(win_id, JSON.stringify(state));
 	}),
 	expandWindow: $(function (this: WindowManager, win_id: string) {
 		let window = this.activeWindows.find((win) => win.id === win_id);

@@ -14,9 +14,16 @@ export interface CommandHistory {
 	output: string;
 }
 
+export interface TerminalState {
+	input: string;
+	history: CommandHistory[];
+	hints: string[];
+	pointer: number;
+	location: string;
+}
+
 const Terminal = component$<AppProps>(({ win_id, isExpanded, onMoveWindow$ }) => {
 	const state = useContext(SystemContext);
-	const location = useSignal<string>('/home/guest');
 
 	// Terminal Positioning / Resizing State
 	const dragOffsets = useStore({ x: 0, y: 0 });
@@ -28,6 +35,22 @@ const Terminal = component$<AppProps>(({ win_id, isExpanded, onMoveWindow$ }) =>
 	const cmdHistory = useSignal<CommandHistory[]>([]);
 	const cmdHints = useSignal<string[]>([]);
 	const pointer = useSignal<number>(-1);
+	const location = useSignal<string>('/home/guest');
+
+	// Load serialized state from localStorage if available
+	useVisibleTask$(() => {
+		const savedState = localStorage.getItem(win_id);
+		if (!savedState) return;
+
+		const state = JSON.parse(savedState) as TerminalState;
+		localStorage.removeItem(win_id);
+
+		cmdInput.value = state.input;
+		cmdHistory.value = state.history;
+		cmdHints.value = state.hints;
+		pointer.value = state.pointer;
+		location.value = state.location;
+	});
 
 	// Window Management
 	const onClose = $(() => {
@@ -35,7 +58,15 @@ const Terminal = component$<AppProps>(({ win_id, isExpanded, onMoveWindow$ }) =>
 	});
 
 	const onMinimize = $(() => {
-		state.windowManager?.minimizeWindow(win_id);
+		const terminalState = {
+			input: cmdInput.value,
+			history: cmdHistory.value,
+			hints: cmdHints.value,
+			pointer: pointer.value,
+			location: location.value,
+		};
+
+		state.windowManager?.minimizeWindow(win_id, terminalState);
 	});
 
 	const onExpand = $(() => {
@@ -182,8 +213,7 @@ const Terminal = component$<AppProps>(({ win_id, isExpanded, onMoveWindow$ }) =>
 				<span class='text-sm'>guest@zvontyf.dev: {unResolvePath()}</span>
 			</div>
 			<div class='flex flex-1 flex-col overflow-y-auto bg-black p-2 !rounded-xl text-sm'>
-				{[...cmdHistory.value].reverse().map(({ cmd, location: loc, output }, index) => {
-					const cmdArr = split(trim(cmd), ' ');
+				{[...cmdHistory.value].reverse().map(({ cmd, location: loc, output }) => {
 					const ctx: TerminalOutputProps = {
 						cmd,
 						location: loc.replace('/home/guest', '~'),
