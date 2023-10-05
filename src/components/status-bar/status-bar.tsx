@@ -27,8 +27,6 @@ export const StatusBar = component$(() => {
 	});
 
 	const handleShowAllTerminalWindows = $(async () => {
-		console.log('All Windows Count:', state.windowManager.windows.length);
-
 		let termCount = 0;
 		for (let { id: win_id, type: appType } of state.windowManager.windows) {
 			if (appType === AppType.Terminal) {
@@ -38,8 +36,6 @@ export const StatusBar = component$(() => {
 				await state.windowManager.minimizeWindow(win_id);
 			}
 		}
-
-		console.log('Terminal Window Count:', termCount);
 
 		showTerminalOptions.value = false;
 	});

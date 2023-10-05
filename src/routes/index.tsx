@@ -1,11 +1,13 @@
-import { $, QwikDragEvent, component$, useComputed$, useContext } from '@builder.io/qwik';
+import { $, QwikDragEvent, component$, useComputed$, useContext, useSignal } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { uniqueId } from 'lodash';
+import GlobalSearch from '~/components/global-search/global-search';
 import WindowContainer from '~/components/ui/window-container';
 import { SystemContext } from '~/root';
 
 export default component$(() => {
 	const systemState = useContext(SystemContext);
+	const showGlobalSearch = useSignal<boolean>(true);
 
 	const activeWindows = useComputed$(() => {
 		return systemState.windowManager.activeWindows;
@@ -19,13 +21,17 @@ export default component$(() => {
 		event.dataTransfer.dropEffect = 'move';
 	});
 
-	const handleDrop = $((event: QwikDragEvent<HTMLDivElement>, element: HTMLDivElement) => {
+	const handleDrop = $((_event: QwikDragEvent<HTMLDivElement>, element: HTMLDivElement) => {
 		if (systemState.desktopManager.draggedItem) {
 			systemState.desktopManager.draggedItem.parentNode?.removeChild(systemState.desktopManager.draggedItem);
 			element.replaceChildren(systemState.desktopManager.draggedItem);
 			systemState.desktopManager.draggedItem.style.visibility = 'visible';
 			systemState.desktopManager.draggedItem = undefined;
 		}
+	});
+
+	const handleCloseSearch = $(() => {
+		showGlobalSearch.value = false;
 	});
 
 	return (
@@ -50,6 +56,7 @@ export default component$(() => {
 					</div>
 				))}
 			</div>
+			{showGlobalSearch.value && <GlobalSearch onClickOutside$={handleCloseSearch} />}
 		</div>
 	);
 });
